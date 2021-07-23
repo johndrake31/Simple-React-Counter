@@ -51,9 +51,19 @@ class Counters extends Component {
         this.setState({ counters: countersArr });
     }
 
+    handleCountReset = () => {
+        const counters = this.state.counters.map(c => {
+            c.value = 0;
+            return c;
+        });
+
+        this.setState({ counters });
+    }
+
     render() {
         return (
             <div>
+                <button onClick={() => this.handleCountReset()} className="btn btn-warning btn-lg">Reset Counters</button>
                 {this.state.counters.map(counter => (
                     <Counter
                         onDelete={this.handleDelete}
