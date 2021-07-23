@@ -1,25 +1,35 @@
 import React, { Component } from 'react';
 
 class Counter extends Component {
+
     state = {
-        count: 0,
-        tags: ["tag1", "tag2", "tag3"],
+
+        count: this.props.counter.value,
+
     };
 
 
     handleIncrement = () => {
         this.setState({ count: this.state.count + 1 });
     }
+    handleDecrement = () => {
+        this.state.count > 0 ?
+            this.setState({ count: this.state.count - 1 }) :
+            this.setState({ count: 0 })
+    }
 
     render() {
+        const counter = this.props.counter;
+
         return (
             <React.Fragment>
-                {this.state.tags.length === 0 && "please create new tags"}
-                {this.renderTags()}
+                <div className="row p-5">
 
-                <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
-
-                <button onClick={this.handleIncrement} className="btn btn-info btn-sm">Increment</button>
+                    <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
+                    <button onClick={this.handleIncrement} className="btn btn-info btn-sm m-2">Increment</button>
+                    <button onClick={this.handleDecrement} className="btn btn-dark btn-sm m-2">Decrement</button>
+                    <button onClick={() => { this.props.onDelete(counter.id) }} className="btn btn-danger btn-sm">delete</button>
+                </div>
 
             </React.Fragment>
 
